@@ -1,0 +1,9 @@
+.idea
+*.iml
+out
+gen
+.env
+.gradle
+build
+gradle
+node_modules
