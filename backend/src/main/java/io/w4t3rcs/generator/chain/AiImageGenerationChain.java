@@ -24,7 +24,9 @@ public class AiImageGenerationChain implements ImageGenerationChain {
     public ImageResponse generate(ImageRequest request, int elementIndex) {
         try {
             if (elementIndex >= generationServices.size()) throw new ChainIndexOutOfBoundsException();
-            return generationServices.get(elementIndex).createImage(request);
+            ImageResponse response = generationServices.get(elementIndex).createImage(request);
+            log.info("Generated AI image {}", response);
+            return response;
         } catch (ChainIndexOutOfBoundsException e) {
             throw new ChainIndexOutOfBoundsException();
         } catch (Exception e) {

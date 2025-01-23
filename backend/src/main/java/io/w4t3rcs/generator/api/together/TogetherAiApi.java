@@ -14,17 +14,16 @@ import java.util.List;
 @Component
 public class TogetherAiApi {
     private final RestClient restClient;
-    private final String baseUrl;
     private final String apiKey;
 
     @Autowired
     public TogetherAiApi(TogetherAiApiConfig config, RestClient.Builder builder) {
         TogetherAiApiConfig.Image imageConfig = config.getImage();
         String baseUrl = imageConfig.getBaseUrl();
-        this.baseUrl = baseUrl != null ? baseUrl : config.getBaseUrl();
+        String baseUrl1 = baseUrl != null ? baseUrl : config.getBaseUrl();
         String apiKey = imageConfig.getApiKey();
         this.apiKey = apiKey != null ? apiKey : config.getApiKey();
-        this.restClient = builder.baseUrl(this.baseUrl)
+        this.restClient = builder.baseUrl(baseUrl1)
                 .defaultHeaders((headers) -> {
                     headers.setBearerAuth(this.apiKey);
                     headers.setAccept(List.of(MediaType.APPLICATION_JSON));
@@ -45,7 +44,7 @@ public class TogetherAiApi {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public record GenerateImageRequest(String prompt, int n, String model, int width,  int height, @JsonProperty("response_format") String responseFormat, long seed, int steps) {
+    public record GenerateImageRequest(String prompt, Integer n, String model, Integer width,  Integer height, @JsonProperty("response_format") String responseFormat, Long seed, Integer steps) {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

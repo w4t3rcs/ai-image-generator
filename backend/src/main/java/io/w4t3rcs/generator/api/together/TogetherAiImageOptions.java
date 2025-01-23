@@ -10,14 +10,14 @@ import org.springframework.ai.image.ImageOptions;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TogetherAiImageOptions implements ImageOptions {
-    private int n = 1;
-    private String model = "black-forest-labs/FLUX.1-schnell-Free";
-    private int width = 1024;
-    private int height = 1024;
+    private Integer n;
+    private String model;
+    private Integer width;
+    private Integer height;
     @JsonProperty("response_format")
-    private String responseFormat = "base64";
-    private long seed;
-    private int steps;
+    private String responseFormat;
+    private Long seed;
+    private Integer steps;
 
     @Override
     public String getStyle() {
