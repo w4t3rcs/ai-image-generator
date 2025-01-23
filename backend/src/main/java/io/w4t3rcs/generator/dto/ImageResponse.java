@@ -14,10 +14,10 @@ public class ImageResponse implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private final Long id;
-    private final String base64;
+    private final String base64Json;
     private final String url;
 
     public static ImageResponse of(Long id, Image image) {
-        return new ImageResponse(id, image.getUrl(), image.getB64Json());
+        return new ImageResponse(id, image.getB64Json(), image.getUrl());
     }
 }

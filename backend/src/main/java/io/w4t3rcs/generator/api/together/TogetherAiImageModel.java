@@ -46,7 +46,7 @@ public class TogetherAiImageModel implements ImageModel {
     private TogetherAiApi.GenerateImageRequest createRequest(ImagePrompt imagePrompt, TogetherAiImageOptions imageOptions) {
         return new TogetherAiApi.GenerateImageRequest(imagePrompt.getInstructions()
                 .stream()
-                .map(message -> message.getText() + ", weight: " + message.getWeight())
+                .map(ImageMessage::getText)
                 .collect(Collectors.joining("\n")),
                 imageOptions.getN(), imageOptions.getModel(), imageOptions.getWidth(), imageOptions.getHeight(), imageOptions.getResponseFormat(), imageOptions.getSeed(), imageOptions.getSteps());
     }
