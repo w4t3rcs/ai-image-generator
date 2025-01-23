@@ -4,6 +4,9 @@ import io.w4t3rcs.generator.dto.ImageRequest;
 import io.w4t3rcs.generator.dto.ImageResponse;
 import io.w4t3rcs.generator.exception.ChainIndexOutOfBoundsException;
 import io.w4t3rcs.generator.service.ImageGenerationService;
+import io.w4t3rcs.generator.service.impl.StabilityImageGenerationService;
+import io.w4t3rcs.generator.service.impl.TogetherImageGenerationService;
+import io.w4t3rcs.generator.service.impl.ZhiPuImageGenerationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,10 @@ public class AiImageGenerationChain implements ImageGenerationChain {
     private final List<ImageGenerationService> generationServices;
 
     @Autowired
-    public AiImageGenerationChain(ImageGenerationService... generationServices) {
-        this.generationServices = List.of(generationServices);
+    public AiImageGenerationChain(TogetherImageGenerationService togetherImageGenerationService,
+                                  StabilityImageGenerationService stabilityImageGenerationService,
+                                  ZhiPuImageGenerationService zhiPuImageGenerationService) {
+        this.generationServices = List.of(togetherImageGenerationService, stabilityImageGenerationService, zhiPuImageGenerationService);
     }
 
     @Override
@@ -25,7 +30,7 @@ public class AiImageGenerationChain implements ImageGenerationChain {
         try {
             if (elementIndex >= generationServices.size()) throw new ChainIndexOutOfBoundsException();
             ImageResponse response = generationServices.get(elementIndex).createImage(request);
-            log.info("Generated AI image {}", response);
+            log.info("Generated an AI image (response with id : {}, request : {})", response.getId(), request);
             return response;
         } catch (ChainIndexOutOfBoundsException e) {
             throw new ChainIndexOutOfBoundsException();
