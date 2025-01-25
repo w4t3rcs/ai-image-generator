@@ -4,7 +4,7 @@ import io.w4t3rcs.generator.dto.ImageRequest;
 import io.w4t3rcs.generator.dto.ImageResponse;
 import io.w4t3rcs.generator.exception.ChainIndexOutOfBoundsException;
 import io.w4t3rcs.generator.repository.ImageRepository;
-import io.w4t3rcs.generator.service.ImageGenerationCompoundService;
+import io.w4t3rcs.generator.service.ImageCompoundService;
 import io.w4t3rcs.generator.service.ImageGenerationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.image.Image;
@@ -15,15 +15,15 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class AiImageGenerationCompoundService implements ImageGenerationCompoundService {
+public class AiImageCompoundService implements ImageCompoundService {
     private final List<ImageGenerationService> generationServices;
     private final ImageRepository imageRepository;
 
     @Autowired
-    public AiImageGenerationCompoundService(TogetherImageGenerationService togetherImageGenerationService,
-                                            StabilityImageGenerationService stabilityImageGenerationService,
-                                            ZhiPuImageGenerationService zhiPuImageGenerationService,
-                                            ImageRepository imageRepository) {
+    public AiImageCompoundService(TogetherImageGenerationService togetherImageGenerationService,
+                                  StabilityImageGenerationService stabilityImageGenerationService,
+                                  ZhiPuImageGenerationService zhiPuImageGenerationService,
+                                  ImageRepository imageRepository) {
         this.generationServices = List.of(togetherImageGenerationService, stabilityImageGenerationService, zhiPuImageGenerationService);
         this.imageRepository = imageRepository;
     }

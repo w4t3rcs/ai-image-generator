@@ -2,7 +2,7 @@ package io.w4t3rcs.generator.controller;
 
 import io.w4t3rcs.generator.dto.ImageRequest;
 import io.w4t3rcs.generator.dto.ImageResponse;
-import io.w4t3rcs.generator.service.ImageGenerationCompoundService;
+import io.w4t3rcs.generator.service.ImageCompoundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1.0/images")
 @RequiredArgsConstructor
 public class ImageGenerationController {
-    private final ImageGenerationCompoundService imageGenerationService;
+    private final ImageCompoundService imageGenerationService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ImageResponse> getImage(@PathVariable Long id) {

@@ -3,7 +3,7 @@ package io.w4t3rcs.generator.service;
 import io.w4t3rcs.generator.dto.ImageRequest;
 import io.w4t3rcs.generator.dto.ImageResponse;
 
-public interface ImageGenerationCompoundService {
+public interface ImageCompoundService {
     default ImageResponse createImage(ImageRequest request) {
         return createImage(request, 0);
     }
